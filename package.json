@@ -9,7 +9,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsc -b && pnpm --filter parsify run build",
+    "build": "tsc -b && tsup --config packages/cli/tsup.config.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc -b --pretty",
