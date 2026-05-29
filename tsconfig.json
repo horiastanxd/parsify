@@ -1,0 +1,13 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/node" },
+    { "path": "packages/browser" },
+    { "path": "packages/converter-pdf" },
+    { "path": "packages/converter-docx" },
+    { "path": "packages/converter-xlsx" },
+    { "path": "packages/ocr" },
+    { "path": "packages/cli" }
+  ]
+}

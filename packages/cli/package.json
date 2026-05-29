@@ -1,0 +1,27 @@
+{
+  "name": "parsify",
+  "version": "0.1.0",
+  "description": "Convert any document to LLM-ready Markdown, JSON, or RAG chunks — from the command line.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "parsify": "./dist/cli.js"
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@parsify/core": "workspace:*",
+    "@parsify/node": "workspace:*",
+    "@parsify/ocr": "workspace:*"
+  },
+  "keywords": ["markdown", "llm", "rag", "cli", "document", "pdf", "docx", "xlsx"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parsify/parsify"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "name": "@parsify/core",
+  "version": "0.1.0",
+  "description": "Isomorphic core for Parsify: document model, converter registry, Markdown/JSON serializers, RAG chunking, and tokenizer.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "domhandler": "^5.0.3",
+    "gpt-tokenizer": "^2.8.1",
+    "htmlparser2": "^9.1.0"
+  },
+  "keywords": ["markdown", "llm", "rag", "document", "converter", "parser", "chunking"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parsify/parsify"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

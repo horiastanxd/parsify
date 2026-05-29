@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parsify — convert any document to Markdown, in your browser</title>
+    <meta
+      name="description"
+      content="Drag a PDF, Word, Excel, HTML, or text file and get LLM-ready Markdown, JSON, or RAG chunks. 100% client-side — your files never leave your browser."
+    />
+  </head>
+  <body>
+    <main id="app">
+      <header class="hero">
+        <h1>Parsify</h1>
+        <p class="tagline">
+          Convert any document to LLM-ready <strong>Markdown</strong>,
+          <strong>JSON</strong>, or <strong>RAG chunks</strong>.
+        </p>
+        <p class="privacy">🔒 100% client-side — your files never leave your browser.</p>
+      </header>
+
+      <section id="dropzone" class="dropzone">
+        <input type="file" id="file-input" hidden />
+        <p>Drag &amp; drop a file here, or <button id="browse" type="button">browse</button></p>
+        <p class="formats">PDF · DOCX · XLSX · HTML · CSV · TXT · Markdown</p>
+      </section>
+
+      <section id="result" class="result" hidden>
+        <div class="result-head">
+          <span id="filename" class="filename"></span>
+          <div class="tabs">
+            <button class="tab active" data-tab="markdown">Markdown</button>
+            <button class="tab" data-tab="json">JSON</button>
+            <button class="tab" data-tab="chunks">Chunks</button>
+          </div>
+          <button id="copy" type="button" class="copy">Copy</button>
+        </div>
+        <pre id="output"><code></code></pre>
+      </section>
+
+      <p id="status" class="status"></p>
+
+      <footer class="footer">
+        <a href="https://github.com/parsify/parsify">GitHub</a> ·
+        MIT licensed · built with <code>@parsify/browser</code>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

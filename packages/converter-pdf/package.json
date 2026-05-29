@@ -1,0 +1,37 @@
+{
+  "name": "@parsify/converter-pdf",
+  "version": "0.1.0",
+  "description": "PDF converter for Parsify (pdfjs-dist). Extracts text with page provenance. Lazy-loaded.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@parsify/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "pdfjs-dist": ">=4"
+  },
+  "devDependencies": {
+    "pdfjs-dist": "^4.9.155"
+  },
+  "keywords": ["pdf", "markdown", "parsify"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parsify/parsify"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

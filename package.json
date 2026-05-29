@@ -1,0 +1,27 @@
+{
+  "name": "parsify-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Parsify — convert any document to LLM-ready Markdown, JSON, or RAG chunks. Runs in Node and the browser.",
+  "type": "module",
+  "packageManager": "pnpm@11.5.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -b && pnpm --filter parsify run build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -b --pretty",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "playground": "pnpm --filter @parsify/playground dev"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.2",
+    "typescript": "^5.6.3",
+    "tsup": "^8.3.5",
+    "vitest": "^2.1.8"
+  }
+}

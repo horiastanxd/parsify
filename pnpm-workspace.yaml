@@ -1,0 +1,9 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+
+# Allow these dependencies to run install scripts (they fetch native binaries).
+onlyBuiltDependencies:
+  - "@biomejs/biome"
+  - esbuild
+  - tesseract.js

@@ -1,0 +1,37 @@
+{
+  "name": "@parsify/converter-docx",
+  "version": "0.1.0",
+  "description": "DOCX converter for Parsify (mammoth → HTML → document model). Lazy-loaded.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@parsify/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "mammoth": ">=1.8"
+  },
+  "devDependencies": {
+    "mammoth": "^1.9.0"
+  },
+  "keywords": ["docx", "word", "markdown", "parsify"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parsify/parsify"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

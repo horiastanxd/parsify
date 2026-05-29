@@ -1,0 +1,35 @@
+{
+  "name": "@parsify/node",
+  "version": "0.1.0",
+  "description": "Node adapter for Parsify: read files, stdin, and URLs; detect formats; convert to Markdown, JSON, or RAG chunks.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@parsify/core": "workspace:*",
+    "@parsify/converter-pdf": "workspace:*",
+    "@parsify/converter-docx": "workspace:*",
+    "@parsify/converter-xlsx": "workspace:*",
+    "file-type": "^19.6.0"
+  },
+  "keywords": ["markdown", "llm", "rag", "document", "node"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parsify/parsify"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

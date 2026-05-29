@@ -1,0 +1,25 @@
+{
+  "name": "@parsify/playground",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Client-side Parsify playground — drag a file, see Markdown/JSON/chunks. Your files never leave the browser.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@parsify/browser": "workspace:*",
+    "@parsify/converter-docx": "workspace:*",
+    "@parsify/converter-pdf": "workspace:*",
+    "@parsify/converter-xlsx": "workspace:*",
+    "buffer": "^6.0.3",
+    "pdfjs-dist": "^4.9.155",
+    "mammoth": "^1.9.0",
+    "exceljs": "^4.4.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  }
+}
