@@ -1,7 +1,7 @@
 {
   "name": "parsify",
   "version": "0.1.0",
-  "description": "Convert any document to LLM-ready Markdown, JSON, or RAG chunks — from the command line.",
+  "description": "Convert any document to LLM-ready Markdown, JSON, or RAG chunks - from the command line.",
   "license": "MIT",
   "type": "module",
   "bin": {

@@ -16,7 +16,7 @@ import { OcrImageConverter } from "@parsify/ocr";
 
 const VERSION = "0.1.0";
 
-const HELP = `parsify — convert any document to LLM-ready Markdown, JSON, or RAG chunks
+const HELP = `parsify - convert any document to LLM-ready Markdown, JSON, or RAG chunks
 
 USAGE
   parsify <file|url>            Convert a file or URL (Markdown to stdout)

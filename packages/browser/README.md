@@ -1,7 +1,7 @@
 # @parsify/browser
 
 Browser adapter for [Parsify](https://github.com/parsify/parsify). Convert a
-`File` or `Blob` to Markdown, JSON, or RAG chunks **100% client-side** — your
+`File` or `Blob` to Markdown, JSON, or RAG chunks **100% client-side** - your
 data never leaves the browser.
 
 ```ts

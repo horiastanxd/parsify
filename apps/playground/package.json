@@ -2,7 +2,7 @@
   "name": "@parsify/playground",
   "version": "0.1.0",
   "private": true,
-  "description": "Client-side Parsify playground — drag a file, see Markdown/JSON/chunks. Your files never leave the browser.",
+  "description": "Client-side Parsify playground - drag a file, see Markdown/JSON/chunks. Your files never leave the browser.",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,8 +1,8 @@
-# Parsify — Design Specification
+# Parsify - Design Specification
 
 **Date:** 2026-05-29
 **Status:** Approved for planning
-**One-liner:** A TypeScript-native toolkit that converts any document into LLM-ready Markdown, structured JSON, or RAG chunks — running identically in Node and the browser, with zero data leaving the client.
+**One-liner:** A TypeScript-native toolkit that converts any document into LLM-ready Markdown, structured JSON, or RAG chunks - running identically in Node and the browser, with zero data leaving the client.
 
 ---
 
@@ -14,10 +14,10 @@
 
 **The differentiators** (things MarkItDown structurally cannot match):
 
-1. **Runs in the browser** — convert files 100% client-side; data never leaves the machine. A new category, not just another converter.
-2. **Parses to a Document Model (AST), not a string** — enabling structured JSON, provenance, and chunking from a single parse.
-3. **RAG-native** — semantic chunking with heading hierarchy, page provenance, and token counts, ready for vector DBs.
-4. **Local-first OCR** — scanned PDFs/images via `tesseract.js`, no cloud, no API key.
+1. **Runs in the browser** - convert files 100% client-side; data never leaves the machine. A new category, not just another converter.
+2. **Parses to a Document Model (AST), not a string** - enabling structured JSON, provenance, and chunking from a single parse.
+3. **RAG-native** - semantic chunking with heading hierarchy, page provenance, and token counts, ready for vector DBs.
+4. **Local-first OCR** - scanned PDFs/images via `tesseract.js`, no cloud, no API key.
 
 ## 2. Goals & Non-Goals
 
@@ -29,14 +29,14 @@
 - First-class, type-safe plugin/converter API from day one.
 
 **Non-Goals (v1):**
-- Full format parity with MarkItDown (PPTX, EPUB, audio, RSS, YouTube, zip) — fast-follow / community plugins.
-- MCP server — fast-follow (architecture leaves room for it).
-- Cloud converters (Azure Doc Intelligence / Content Understanding) — explicitly not our positioning.
-- High-fidelity human-facing document rendering — output is for text/LLM pipelines.
+- Full format parity with MarkItDown (PPTX, EPUB, audio, RSS, YouTube, zip) - fast-follow / community plugins.
+- MCP server - fast-follow (architecture leaves room for it).
+- Cloud converters (Azure Doc Intelligence / Content Understanding) - explicitly not our positioning.
+- High-fidelity human-facing document rendering - output is for text/LLM pipelines.
 
 ## 3. Architecture
 
-**Approach: layered — pure core + thin environment adapters + lazy heavy converters.**
+**Approach: layered - pure core + thin environment adapters + lazy heavy converters.**
 
 ```
 parsify/
@@ -126,7 +126,7 @@ interface Converter {
 }
 ```
 
-- `priority`: generic converters (plain text, html) get a high number (tried last); specific converters (pdf, docx) get a low number (tried first) — same semantics as MarkItDown's `PRIORITY_SPECIFIC_FILE_FORMAT` vs `PRIORITY_GENERIC_FILE_FORMAT`.
+- `priority`: generic converters (plain text, html) get a high number (tried last); specific converters (pdf, docx) get a low number (tried first) - same semantics as MarkItDown's `PRIORITY_SPECIFIC_FILE_FORMAT` vs `PRIORITY_GENERIC_FILE_FORMAT`.
 - `async` because `pdf.js`/WASM/OCR are inherently async in JS and to allow streaming large files.
 - The registry tries accepting converters in priority order; first successful `parse()` wins. Failures are collected and surfaced if none succeed (mirrors MarkItDown's `FileConversionException`).
 
@@ -145,11 +145,11 @@ countTokens(text: string, model?: string): number;
 
 | Feature | Implementation | Package |
 |---|---|---|
-| JSON tree | `toJSON(doc)` — exposes the model directly | core |
-| Markdown | `toMarkdown(doc)` — serialize tree; apply MarkItDown-style whitespace normalization (rstrip lines, collapse 3+ blank lines to 2) | core |
-| Frontmatter | `toMarkdown(doc, { frontmatter: true })` — emit YAML from `doc.metadata` | core |
+| JSON tree | `toJSON(doc)` - exposes the model directly | core |
+| Markdown | `toMarkdown(doc)` - serialize tree; apply MarkItDown-style whitespace normalization (rstrip lines, collapse 3+ blank lines to 2) | core |
+| Frontmatter | `toMarkdown(doc, { frontmatter: true })` - emit YAML from `doc.metadata` | core |
 | Token-aware | `countTokens` via `gpt-tokenizer` (pure JS, isomorphic, no WASM) | core |
-| RAG chunking | `toChunks` — group blocks respecting heading boundaries; never split below `maxTokens` where avoidable | core |
+| RAG chunking | `toChunks` - group blocks respecting heading boundaries; never split below `maxTokens` where avoidable | core |
 | Local OCR | `@parsify/ocr` registers a step that fills `image.ocrText` via tesseract.js; lazy, opt-in | ocr |
 
 ```typescript
@@ -213,8 +213,8 @@ parsify ./docs/ -o ./out/             # batch a directory (new vs MarkItDown)
 
 - **Vitest** for unit + integration.
 - **Fixtures** per format in `tests/fixtures/` (sample files).
-- **Test vectors**: `(input file → expected markdown/json)` pairs run **identically in Node and browser (jsdom/happy-dom)** to guarantee isomorphic parity — if a converter diverges across environments, the test fails.
-- **TDD** for pure logic (serializers, chunking, tokenizer) — no I/O needed.
+- **Test vectors**: `(input file → expected markdown/json)` pairs run **identically in Node and browser (jsdom/happy-dom)** to guarantee isomorphic parity - if a converter diverges across environments, the test fails.
+- **TDD** for pure logic (serializers, chunking, tokenizer) - no I/O needed.
 - **CI** (GitHub Actions): Biome lint, `tsc` typecheck, Vitest on Node 18/20/22, playground build.
 
 ## 10. Licensing & Distribution

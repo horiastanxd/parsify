@@ -23,7 +23,7 @@ core  ←  node / browser  ←  cli / playground
 core  ←  converter-* / ocr
 ```
 
-`@parsify/core` must stay **isomorphic and I/O-free** — no `node:` imports. Anything
+`@parsify/core` must stay **isomorphic and I/O-free** - no `node:` imports. Anything
 that touches the filesystem, the network, or a heavy parser lives in an adapter or a
 converter package.
 

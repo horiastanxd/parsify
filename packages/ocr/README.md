@@ -1,7 +1,7 @@
 # @parsify/ocr
 
 Optional **local** OCR for [Parsify](https://github.com/parsify/parsify), built on
-`tesseract.js`. Recognizes text from images and scanned pages — entirely offline,
+`tesseract.js`. Recognizes text from images and scanned pages - entirely offline,
 no cloud, no API key. Lazy-loaded so the heavy WASM assets load only when used.
 
 ```ts

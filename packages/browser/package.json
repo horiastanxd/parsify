@@ -1,7 +1,7 @@
 {
   "name": "@parsify/browser",
   "version": "0.1.0",
-  "description": "Browser adapter for Parsify: convert File/Blob/ArrayBuffer to Markdown, JSON, or RAG chunks — 100% client-side.",
+  "description": "Browser adapter for Parsify: convert File/Blob/ArrayBuffer to Markdown, JSON, or RAG chunks - 100% client-side.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",

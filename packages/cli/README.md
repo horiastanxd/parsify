@@ -1,6 +1,6 @@
 # parsify
 
-The [Parsify](https://github.com/parsify/parsify) CLI — convert any document to
+The [Parsify](https://github.com/parsify/parsify) CLI - convert any document to
 LLM-ready Markdown, JSON, or RAG chunks.
 
 ```bash

@@ -1,22 +1,12 @@
-<div align="center">
-
 # Parsify
 
-**Convert any document to LLM-ready Markdown, JSON, or RAG chunks — in Node _and_ the browser.**
+Turn PDFs, Word docs, spreadsheets, HTML and plain text into clean Markdown for
+LLMs. Parsify can also give you the parsed document as a JSON tree, or split it
+into RAG chunks that already carry their heading path, page number and token count.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6.svg)](https://www.typescriptlang.org/)
-[![Runs in the browser](https://img.shields.io/badge/runs%20in-the%20browser-6ee7b7.svg)](#playground)
-
-</div>
-
-Parsify turns PDFs, Word docs, spreadsheets, HTML, CSV, and plain text into clean
-Markdown for LLMs — or into a **structured document tree** and **RAG-ready chunks**
-with heading paths, page provenance, and token counts.
-
-It is **isomorphic**: the same code runs in Node and in the browser. The browser
-build means you can convert files **100% client-side — your data never leaves the
-machine**. No server, no API key, no cloud.
+The whole thing runs in Node and in the browser from the same codebase. In the
+browser that means files get converted locally, on the page, without uploading
+them anywhere.
 
 ```ts
 import { parse } from "@parsify/node";
@@ -24,49 +14,55 @@ import { toMarkdown, toChunks } from "@parsify/core";
 
 const doc = await parse("report.pdf");
 
-toMarkdown(doc, { frontmatter: true });   // LLM-ready Markdown + YAML metadata
-toChunks(doc, { maxTokens: 512 });         // RAG chunks with headingPath, page, tokenCount
+toMarkdown(doc, { frontmatter: true });  // Markdown with a YAML metadata header
+toChunks(doc, { maxTokens: 512 });        // chunks with headingPath, page, tokenCount
 ```
 
-## Why Parsify?
+## Why it exists
 
-| | Parsify | Typical converters |
-|---|---|---|
-| **Runs in the browser** | ✅ 100% client-side | ❌ server-only |
-| **Output** | Markdown **+ JSON tree + RAG chunks** | Markdown string only |
-| **Structure preserved** | ✅ typed document model | ❌ flattened to text |
-| **Provenance** | ✅ page numbers per block | ❌ none |
-| **RAG chunking** | ✅ built-in, heading-aware | ❌ bring your own |
-| **Token counts** | ✅ built-in | ❌ none |
-| **OCR** | ✅ local, zero-cloud (opt-in) | ☁️ paid cloud APIs |
+There are good Python tools for this (MarkItDown being the obvious one), but the
+JavaScript side has been mostly empty. If you're building an agent or a RAG
+pipeline in TypeScript you usually end up shelling out to Python or a cloud API.
+Parsify is meant to be the thing you reach for instead.
 
-The key design difference: most tools serialize straight to a Markdown string and
-throw the structure away. Parsify parses into a **typed document model** first —
-so Markdown, JSON, and chunks are all *derived* from one parse, and structure +
-provenance survive.
+Two ideas shape the design:
+
+1. It parses into a typed document tree first, and Markdown / JSON / chunks are
+   produced from that tree. Most converters dump straight to a Markdown string and
+   lose the structure on the way. Keeping the tree means you also get page
+   provenance and proper chunking for free.
+2. It runs client side. The browser build does the parsing in the page, so for a
+   lot of privacy-sensitive use cases you never have to send the file to a server.
+
+OCR is optional and also local (tesseract.js), so scanned PDFs and images work
+without any cloud service or API key.
 
 ## Install
 
 ```bash
-# Library (Node)
 npm install @parsify/node
+```
 
-# CLI — or just run it with npx
+Or just run the CLI without installing:
+
+```bash
 npx parsify report.pdf > report.md
 ```
 
 ## CLI
 
 ```bash
-parsify report.pdf                          # → Markdown on stdout
-parsify report.pdf -o report.md             # → file
-parsify report.pdf --json                   # → structured JSON tree
-parsify report.pdf --chunks --max-tokens 512 # → RAG chunks (JSONL)
-parsify report.pdf --frontmatter            # → Markdown with YAML frontmatter
-parsify report.pdf --ocr                    # → local OCR for scanned pages
-cat file.pdf | parsify -x pdf               # → read from stdin
-parsify ./docs -o ./out                     # → batch a whole directory
+parsify report.pdf                            # Markdown to stdout
+parsify report.pdf -o report.md               # write to a file
+parsify report.pdf --json                      # the JSON document tree
+parsify report.pdf --chunks --max-tokens 512   # RAG chunks as JSONL
+parsify report.pdf --frontmatter               # Markdown with a YAML header
+parsify report.pdf --ocr                        # local OCR for scanned pages
+cat report.pdf | parsify -x pdf                 # read from stdin
+parsify ./docs -o ./out                         # convert a whole folder
 ```
+
+`parsify --help` lists everything.
 
 ## Library
 
@@ -77,16 +73,16 @@ import { toMarkdown, toJSON, toChunks, countTokens } from "@parsify/core";
 const doc = await parse("invoice.docx");
 
 const md     = toMarkdown(doc, { frontmatter: true });
-const tree   = toJSON(doc);                       // ParsifyDocument
-const chunks = toChunks(doc, { maxTokens: 256 }); // Chunk[]
+const tree   = toJSON(doc);
+const chunks = toChunks(doc, { maxTokens: 256 });
 const tokens = countTokens(md);
 ```
 
-Each chunk carries everything a RAG pipeline needs:
+A chunk looks like this:
 
 ```ts
 {
-  text: "## Goals\n\n…",
+  text: "## Goals\n\nShip v1 by Q3.",
   tokenCount: 187,
   headingPath: ["Introduction", "Goals"],
   page: 3,
@@ -94,54 +90,49 @@ Each chunk carries everything a RAG pipeline needs:
 }
 ```
 
-## Browser
+## In the browser
 
 ```ts
 import { parseFile, toMarkdown } from "@parsify/browser";
 
 input.addEventListener("change", async () => {
-  const doc = await parseFile(input.files[0]); // never leaves the browser
+  const doc = await parseFile(input.files[0]);
   console.log(toMarkdown(doc));
 });
 ```
 
-### Playground
+There's a small drag-and-drop demo in `apps/playground` that does this entirely in
+the page. Run it with `pnpm playground`.
 
-The `apps/playground` app is a drag-and-drop demo that converts files entirely in
-your browser. Run it locally:
+## Formats
 
-```bash
-pnpm install
-pnpm playground
-```
+PDF, DOCX, XLSX, CSV, HTML, plain text, Markdown, and images (with OCR on).
 
-## Supported formats (v1)
+Anything else is meant to come in as a separate `@parsify/converter-*` package.
+The converter interface is public, so adding a format is a small, self-contained
+job.
 
-PDF · DOCX · XLSX · CSV · HTML · TXT · Markdown · images (with optional OCR).
+## How it's put together
 
-More formats are designed to arrive as standalone `@parsify/converter-*` packages —
-the converter interface is public and stable.
+It's a pnpm monorepo. The core is environment-agnostic and does no I/O; the
+adapters add file/network access and pull in the heavy parsers only when they're
+actually needed, so the browser bundle stays small.
 
-## Architecture
-
-Parsify is a layered monorepo so the browser bundle stays small and heavy parsers
-load only when needed:
-
-| Package | Role |
+| Package | What it does |
 |---|---|
-| [`@parsify/core`](./packages/core) | Isomorphic, zero-I/O: document model, registry, serializers, chunking, tokenizer |
-| [`@parsify/node`](./packages/node) | Node adapter: file/stdin/URL reads + format detection |
-| [`@parsify/browser`](./packages/browser) | Browser adapter: `File`/`Blob`, 100% client-side |
-| [`@parsify/converter-pdf`](./packages/converter-pdf) | PDF (pdfjs-dist), lazy-loaded |
-| [`@parsify/converter-docx`](./packages/converter-docx) | DOCX (mammoth), lazy-loaded |
-| [`@parsify/converter-xlsx`](./packages/converter-xlsx) | XLSX (exceljs), lazy-loaded |
-| [`@parsify/ocr`](./packages/ocr) | Optional local OCR (tesseract.js) |
-| [`parsify`](./packages/cli) | The CLI |
+| `@parsify/core` | document model, registry, Markdown/JSON serializers, chunking, tokenizer |
+| `@parsify/node` | reads files, stdin and URLs, detects the format |
+| `@parsify/browser` | parses a `File` or `Blob` in the page |
+| `@parsify/converter-pdf` | PDF, via pdfjs-dist |
+| `@parsify/converter-docx` | DOCX, via mammoth |
+| `@parsify/converter-xlsx` | XLSX, via exceljs |
+| `@parsify/ocr` | optional local OCR, via tesseract.js |
+| `parsify` | the CLI |
 
 ### Writing a converter
 
-A converter is anything implementing the `Converter` interface — a cheap
-`accepts()` check plus an async `parse()` that returns a document model:
+A converter is a small object with a cheap `accepts()` check and an async
+`parse()` that returns the document model:
 
 ```ts
 import type { Converter, ParseInput, ParsifyDocument } from "@parsify/core";
@@ -150,26 +141,31 @@ import { PRIORITY_SPECIFIC } from "@parsify/core";
 export class MyConverter implements Converter {
   name = "my-format";
   priority = PRIORITY_SPECIFIC;
-  accepts(source) { return source.extension === ".myext"; }
+  accepts(source) {
+    return source.extension === ".myext";
+  }
   async parse(input: ParseInput): Promise<ParsifyDocument> {
-    return { metadata: {}, blocks: [/* … */] };
+    return { metadata: {}, blocks: [] };
   }
 }
 ```
 
-Register it via `createNodeRegistry([new MyConverter()])` (or the browser equivalent).
+Register it with `createNodeRegistry([new MyConverter()])`, or the browser
+equivalent.
 
 ## Development
 
 ```bash
 pnpm install
-pnpm build       # tsc -b for libraries + tsup for the CLI
-pnpm test        # vitest
-pnpm typecheck   # tsc -b
-pnpm lint        # biome
-pnpm playground  # run the browser demo
+pnpm build
+pnpm test
+pnpm typecheck
+pnpm lint
+pnpm playground
 ```
+
+Node 18+ and pnpm 11+ (`corepack enable` gives you pnpm).
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
+MIT. See [LICENSE](./LICENSE).

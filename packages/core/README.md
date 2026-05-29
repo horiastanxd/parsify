@@ -2,7 +2,7 @@
 
 Isomorphic core for [Parsify](https://github.com/parsify/parsify): the typed
 document model, converter registry, Markdown/JSON serializers, heading-aware RAG
-chunking, and a pure-JS tokenizer. Zero I/O — runs anywhere.
+chunking, and a pure-JS tokenizer. Zero I/O - runs anywhere.
 
 ```ts
 import { toMarkdown, toChunks, countTokens, createRegistry } from "@parsify/core";

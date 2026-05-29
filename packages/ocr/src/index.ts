@@ -10,7 +10,7 @@ export interface OcrOptions {
 
 /**
  * Run OCR on raw image bytes, returning recognized text. Loads tesseract.js
- * lazily — importing this module does not pull in the heavy WASM/worker assets.
+ * lazily - importing this module does not pull in the heavy WASM/worker assets.
  */
 export async function recognize(bytes: Uint8Array, options: OcrOptions = {}): Promise<string> {
   const { createWorker }: any = await import("tesseract.js");

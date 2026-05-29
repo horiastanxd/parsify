@@ -2,7 +2,7 @@
  * The Parsify Document Model.
  *
  * Unlike string-first converters, every Parsify converter parses into this typed
- * tree. Markdown, JSON, and RAG chunks are all *derived* from it — so structure,
+ * tree. Markdown, JSON, and RAG chunks are all *derived* from it - so structure,
  * provenance, and metadata survive the conversion.
  */
 
@@ -134,7 +134,7 @@ export interface Converter {
    * value; near-catch-all formats (plain text, html) should use a high value.
    */
   priority: number;
-  /** Cheap determination from metadata only — must not read bytes. */
+  /** Cheap determination from metadata only - must not read bytes. */
   accepts(source: SourceInfo): boolean;
   parse(input: ParseInput): Promise<ParsifyDocument>;
 }

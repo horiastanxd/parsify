@@ -2,7 +2,7 @@
   "name": "parsify-monorepo",
   "version": "0.0.0",
   "private": true,
-  "description": "Parsify — convert any document to LLM-ready Markdown, JSON, or RAG chunks. Runs in Node and the browser.",
+  "description": "Parsify - convert any document to LLM-ready Markdown, JSON, or RAG chunks. Runs in Node and the browser.",
   "type": "module",
   "packageManager": "pnpm@11.5.0",
   "engines": {
