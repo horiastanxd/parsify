@@ -4,7 +4,7 @@
   "private": true,
   "description": "Parsify - convert any document to LLM-ready Markdown, JSON, or RAG chunks. Runs in Node and the browser.",
   "type": "module",
-  "packageManager": "pnpm@11.5.0",
+  "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=18"
   },

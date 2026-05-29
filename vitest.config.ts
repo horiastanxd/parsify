@@ -1,7 +1,9 @@
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
-const here = import.meta.dirname;
+// fileURLToPath keeps this working on Node 18 (import.meta.dirname is 20.11+).
+const here = dirname(fileURLToPath(import.meta.url));
 
 // Alias workspace packages to their TypeScript sources so the unit suite runs
 // without a build step. Heavy converters are tested separately (they need
